@@ -1,1 +1,679 @@
+{% extends "base.html" %}
 
+{% block title %}Musubi — KpnWorld{% endblock %}
+{% block meta_description %}Musubi connects your Discord server to a stranger's. Two servers. One call. Real conversations. Guild-to-guild relay bot by KpnWorld.{% endblock %}
+
+{% block content %}
+
+<!-- ==================== HERO ==================== -->
+<section class="m-hero">
+
+  <div class="m-blob m-blob-1"></div>
+  <div class="m-blob m-blob-2"></div>
+  <div class="m-blob m-blob-3"></div>
+
+  <div class="m-hero-inner">
+
+    <div class="m-hero-text">
+      <div class="m-eyebrow">
+        <span class="m-dot"></span>
+        GUILD-TO-GUILD RELAY BOT
+        <span class="m-badge">v1.0.0 BETA</span>
+      </div>
+
+      <h1 class="m-title">
+        Extend<br/>the server.
+      </h1>
+
+      <p class="m-tagline">Cross the distance. Make the call.</p>
+
+      <p class="m-sub">
+        Musubi connects your Discord server to a stranger's. Two servers. One call. Real conversations — names, avatars, replies relayed in real time.
+      </p>
+
+      <div class="m-hero-stats">
+        <div class="m-stat">
+          <span class="m-stat-num">—</span>
+          <span class="m-stat-label">Servers</span>
+        </div>
+        <div class="m-stat-divider"></div>
+        <div class="m-stat">
+          <span class="m-stat-num">—</span>
+          <span class="m-stat-label">Calls made</span>
+        </div>
+        <div class="m-stat-divider"></div>
+        <div class="m-stat">
+          <span class="m-stat-num">24/7</span>
+          <span class="m-stat-label">Online</span>
+        </div>
+      </div>
+
+      <div class="m-hero-actions">
+        <a href="https://discord.com/oauth2/authorize?client_id=920092351551139880" class="m-btn-primary">Add to Server ↗</a>
+        <a href="/musubi/commands" class="m-btn-ghost">Commands ref</a>
+      </div>
+    </div>
+
+    <div class="m-hero-visual">
+      <!-- Animated call diagram -->
+      <div class="m-call-diagram">
+        <div class="m-server m-server-left">
+          <img src="{{ url_for('static', filename='img/musubi.png') }}" alt="Musubi" class="m-server-icon" />
+          <span class="m-server-label">Your Server</span>
+        </div>
+
+        <div class="m-wire">
+          <div class="m-wire-line">
+            <div class="m-wire-pulse"></div>
+            <div class="m-wire-pulse m-pulse-2"></div>
+          </div>
+          <div class="m-wire-center">
+            <span class="m-wire-icon">📞</span>
+          </div>
+          <div class="m-wire-line">
+            <div class="m-wire-pulse m-pulse-3"></div>
+            <div class="m-wire-pulse m-pulse-4"></div>
+          </div>
+        </div>
+
+        <div class="m-server m-server-right">
+          <div class="m-server-unknown">?</div>
+          <span class="m-server-label">Stranger's Server</span>
+        </div>
+      </div>
+
+      <!-- Floating message previews -->
+      <div class="m-msg m-msg-left reveal-msg">
+        <span class="m-msg-name">spector</span>
+        <span class="m-msg-text">hello? anyone there</span>
+      </div>
+      <div class="m-msg m-msg-right reveal-msg-2">
+        <span class="m-msg-name" style="color: var(--m-pink)">stranger</span>
+        <span class="m-msg-text">hey!! where are you from</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="m-scroll">scroll ↓</div>
+
+</section>
+
+<!-- ==================== HOW IT WORKS ==================== -->
+<section class="m-how">
+  <div class="m-how-inner">
+    <div class="m-section-head reveal">
+      <div class="m-section-eyebrow">HOW IT WORKS</div>
+      <h2 class="m-section-title">Three steps.<br/>One call.</h2>
+    </div>
+    <div class="m-steps">
+      <div class="m-step reveal">
+        <div class="m-step-num">01</div>
+        <div class="m-step-icon">⚙️</div>
+        <h3 class="m-step-name">Setup your booth</h3>
+        <p class="m-step-desc">Run <code>/setup</code> to register your server and pick a single booth channel where all calls happen.</p>
+      </div>
+      <div class="m-step-arrow">→</div>
+      <div class="m-step reveal">
+        <div class="m-step-num">02</div>
+        <div class="m-step-icon">📞</div>
+        <h3 class="m-step-name">Dial in</h3>
+        <p class="m-step-desc">Run <code>/call</code> to enter the network. Smart matchmaking finds you a partner server — premium guilds get priority.</p>
+      </div>
+      <div class="m-step-arrow">→</div>
+      <div class="m-step reveal">
+        <div class="m-step-num">03</div>
+        <div class="m-step-icon">💬</div>
+        <h3 class="m-step-name">Talk</h3>
+        <p class="m-step-desc">Messages, names, avatars, and replies relay in real time through webhooks. When you're done, <code>/hangup</code>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FEATURES ==================== -->
+<section class="m-features">
+
+  <div class="m-section-head center reveal">
+    <div class="m-section-eyebrow">FEATURES</div>
+    <h2 class="m-section-title">Everything the network needs.<br/>Nothing it doesn't.</h2>
+  </div>
+
+  <div class="m-features-grid">
+
+    <div class="m-feat reveal">
+      <div class="m-feat-header">
+        <span class="m-feat-icon">📞</span>
+        <h3 class="m-feat-name">Phone</h3>
+        <span class="m-feat-tag">Core</span>
+      </div>
+      <p class="m-feat-desc">Place a call, get matched, talk in real time. Go anonymous with <code>/anonymous</code> or drop your tag with <code>/friendme</code>.</p>
+      <div class="m-feat-commands">
+        <code>/call</code><code>/hangup</code><code>/anonymous</code><code>/friendme</code>
+      </div>
+    </div>
+
+    <div class="m-feat reveal">
+      <div class="m-feat-header">
+        <span class="m-feat-icon">👤</span>
+        <h3 class="m-feat-name">Profile</h3>
+        <span class="m-feat-tag purple">Premium</span>
+      </div>
+      <p class="m-feat-desc">Control how you appear on the network. Custom display names and avatars for premium users.</p>
+      <div class="m-feat-commands">
+        <code>/me status</code><code>/me name</code><code>/me avatar</code><code>/me reset</code>
+      </div>
+    </div>
+
+    <div class="m-feat reveal">
+      <div class="m-feat-header">
+        <span class="m-feat-icon">⚙️</span>
+        <h3 class="m-feat-name">Server Setup</h3>
+        <span class="m-feat-tag">Admin</span>
+      </div>
+      <p class="m-feat-desc">Everything admins need. Register, pick a booth channel, set a prefix, or unregister safely.</p>
+      <div class="m-feat-commands">
+        <code>/setup</code><code>/setbooth</code><code>/prefix</code><code>/unregister</code>
+      </div>
+    </div>
+
+    <div class="m-feat reveal">
+      <div class="m-feat-header">
+        <span class="m-feat-icon">🏆</span>
+        <h3 class="m-feat-name">Callboard</h3>
+        <span class="m-feat-tag">Network</span>
+      </div>
+      <p class="m-feat-desc">Servers earn XP every time someone sends a message on a call. Top 7 reset monthly. Premium servers earn double XP.</p>
+      <div class="m-feat-commands">
+        <code>/callboard</code>
+      </div>
+    </div>
+
+    <div class="m-feat reveal">
+      <div class="m-feat-header">
+        <span class="m-feat-icon">✨</span>
+        <h3 class="m-feat-name">Premium</h3>
+        <span class="m-feat-tag purple">Two Tiers</span>
+      </div>
+      <p class="m-feat-desc">User premium: custom name, avatar, personal prefix. Server premium: attachment forwarding, sticker relay, double XP.</p>
+      <div class="m-feat-commands">
+        <code>/premium status</code><code>/redeem</code>
+      </div>
+    </div>
+
+    <div class="m-feat reveal">
+      <div class="m-feat-header">
+        <span class="m-feat-icon">🛡️</span>
+        <h3 class="m-feat-name">Safety</h3>
+        <span class="m-feat-tag">Built-in</span>
+      </div>
+      <p class="m-feat-desc">Global message filter, invite blocking, flood detection, caps spam detection. Banned users dropped at the door — no config needed.</p>
+      <div class="m-feat-commands">
+        <code>automatic</code>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== CTA ==================== -->
+<section class="m-cta">
+  <div class="m-cta-blob"></div>
+  <div class="m-cta-inner reveal">
+    <span class="m-cta-icon">📞</span>
+    <h2 class="m-cta-title">Ready to make<br/>the first call?</h2>
+    <p class="m-cta-sub">Add Musubi to your server. Pick a booth channel. Dial in.</p>
+    <div class="m-cta-actions">
+      <a href="https://discord.com/oauth2/authorize?client_id=920092351551139880" class="m-btn-primary">Add Musubi ↗</a>
+      <a href="https://discord.gg/F9PB47S3FJ" target="_blank" class="m-btn-ghost">Join the network</a>
+    </div>
+    <a href="/" class="m-back">← Back to KpnWorld</a>
+  </div>
+</section>
+
+{% endblock %}
+
+
+{% block styles %}
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+<style>
+
+  :root {
+    --m-purple:      #C084FC;
+    --m-purple-deep: #A855F7;
+    --m-pink:        #F472B6;
+    --m-bg:          #fdf8ff;
+    --m-bg-2:        #f7f0ff;
+    --m-bg-3:        #ede0ff;
+    --m-border:      rgba(192,132,252,0.18);
+    --m-text:        #150a28;
+    --m-text-muted:  #7a6695;
+    --m-code-bg:     rgba(192,132,252,0.1);
+  }
+
+  body { background: var(--m-bg) !important; color: var(--m-text) !important; }
+  .cursor      { background: var(--m-purple) !important; }
+  .cursor-ring { border-color: rgba(192,132,252,0.45) !important; }
+  body:has(a:hover) .cursor      { background: var(--m-pink) !important; }
+  body:has(a:hover) .cursor-ring { border-color: rgba(244,114,182,0.4) !important; }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(192,132,252,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(192,132,252,0.05) 1px, transparent 1px) !important;
+  }
+  body::before { opacity: 0.12 !important; }
+
+  nav { background: linear-gradient(to bottom, rgba(253,248,255,0.98), transparent) !important; }
+  nav.scrolled { background: rgba(253,248,255,0.97) !important; border-bottom: 1px solid var(--m-border) !important; }
+  .nav-logo { color: var(--m-text) !important; }
+  .nav-logo-icon { background: linear-gradient(135deg, var(--m-purple), var(--m-pink)) !important; }
+  .nav-logo-icon::after { background: var(--m-bg) !important; }
+  .nav-links a { color: var(--m-text-muted) !important; }
+  .nav-links a:hover { color: var(--m-text) !important; }
+  .nav-cta { color: var(--m-purple) !important; border-color: var(--m-border) !important; }
+  .nav-cta:hover { background: var(--m-purple) !important; color: white !important; }
+  .nav-hamburger span { background: var(--m-text-muted) !important; }
+
+  footer { background: var(--m-bg-2) !important; border-top: 1px solid var(--m-border) !important; }
+  .footer-logo { color: var(--m-text) !important; }
+  .footer-tagline, .footer-col-title, .footer-col a, .footer-bottom span { color: var(--m-text-muted) !important; }
+  .footer-col a:hover { color: var(--m-purple) !important; }
+
+  /* ── BLOBS ── */
+  .m-blob {
+    position: absolute; border-radius: 50%;
+    pointer-events: none; filter: blur(100px);
+    animation: glow-pulse 7s ease-in-out infinite;
+  }
+  .m-blob-1 { width: 550px; height: 550px; background: rgba(192,132,252,0.15); top: -80px; right: -80px; }
+  .m-blob-2 { width: 350px; height: 350px; background: rgba(244,114,182,0.12); bottom: 50px; left: 50px; animation-delay: 3s; }
+  .m-blob-3 { width: 250px; height: 250px; background: rgba(168,85,247,0.1); top: 40%; left: 35%; animation-delay: 5s; }
+
+  /* ── HERO ── */
+  .m-hero {
+    position: relative; min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 60px 80px;
+    z-index: 2; overflow: hidden;
+  }
+  .m-hero-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    width: 100%; max-width: 1200px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+
+  .m-eyebrow {
+    font-family: var(--font-mono); font-size: 0.7rem;
+    letter-spacing: 0.18em; color: var(--m-purple);
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 24px;
+    opacity: 0; animation: fade-up 0.7s 0.1s forwards;
+  }
+  .m-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--m-purple);
+    box-shadow: 0 0 8px var(--m-purple);
+    flex-shrink: 0;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%,100% { box-shadow: 0 0 6px var(--m-purple); }
+    50%      { box-shadow: 0 0 16px var(--m-purple), 0 0 28px rgba(192,132,252,0.4); }
+  }
+  .m-badge {
+    font-size: 0.65rem; letter-spacing: 0.1em;
+    background: rgba(192,132,252,0.15);
+    border: 1px solid var(--m-border);
+    color: var(--m-purple);
+    padding: 2px 8px; border-radius: 3px;
+  }
+
+  .m-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.2rem, 7vw, 6.5rem);
+    font-weight: 700; line-height: 0.95;
+    letter-spacing: -0.02em; color: var(--m-text);
+    margin-bottom: 16px;
+    opacity: 0; animation: fade-up 0.7s 0.25s forwards;
+  }
+  .m-tagline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-style: italic; color: var(--m-purple);
+    margin-bottom: 20px;
+    opacity: 0; animation: fade-up 0.7s 0.4s forwards;
+  }
+  .m-sub {
+    font-family: var(--font-mono); font-size: 0.88rem;
+    color: var(--m-text-muted); line-height: 1.85;
+    max-width: 400px; margin-bottom: 36px;
+    opacity: 0; animation: fade-up 0.7s 0.5s forwards;
+  }
+
+  .m-hero-stats {
+    display: flex; align-items: center; gap: 28px;
+    margin-bottom: 36px;
+    opacity: 0; animation: fade-up 0.7s 0.6s forwards;
+  }
+  .m-stat-num {
+    display: block; font-family: 'Playfair Display', serif;
+    font-size: 1.7rem; font-weight: 700; color: var(--m-purple);
+  }
+  .m-stat-label {
+    font-family: var(--font-mono); font-size: 0.68rem;
+    letter-spacing: 0.1em; color: var(--m-text-muted);
+  }
+  .m-stat-divider { width: 1px; height: 30px; background: var(--m-border); }
+
+  .m-hero-actions {
+    display: flex; gap: 14px; align-items: center;
+    opacity: 0; animation: fade-up 0.7s 0.7s forwards;
+  }
+
+  /* ── CALL DIAGRAM ── */
+  .m-hero-visual {
+    position: relative;
+    opacity: 0; animation: fade-up 0.7s 0.4s forwards;
+  }
+  .m-call-diagram {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; padding: 48px;
+    background: rgba(255,255,255,0.6);
+    border: 1px solid var(--m-border);
+    border-radius: 24px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 40px rgba(192,132,252,0.12);
+  }
+  .m-server {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 12px;
+  }
+  .m-server-icon {
+    width: 80px; height: 80px;
+    border-radius: 50%; object-fit: cover;
+    border: 2px solid rgba(192,132,252,0.3);
+    box-shadow: 0 0 24px rgba(192,132,252,0.2);
+  }
+  .m-server-unknown {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: var(--m-bg-3);
+    border: 2px dashed rgba(192,132,252,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; color: var(--m-purple); opacity: 0.5;
+    font-family: 'Playfair Display', serif;
+  }
+  .m-server-label {
+    font-family: var(--font-mono); font-size: 0.72rem;
+    letter-spacing: 0.08em; color: var(--m-text-muted);
+  }
+
+  /* Wire between servers */
+  .m-wire {
+    flex: 1; display: flex; align-items: center;
+    padding: 0 16px; position: relative;
+  }
+  .m-wire-line {
+    flex: 1; height: 2px;
+    background: linear-gradient(90deg, rgba(192,132,252,0.2), rgba(192,132,252,0.5), rgba(192,132,252,0.2));
+    position: relative; overflow: visible;
+  }
+  .m-wire-pulse {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--m-purple);
+    box-shadow: 0 0 8px var(--m-purple);
+    animation: travel-right 2.5s linear infinite;
+  }
+  .m-pulse-2 { animation-delay: 1.25s; }
+  .m-pulse-3 { animation: travel-left 2.5s linear infinite; }
+  .m-pulse-4 { animation: travel-left 2.5s linear infinite; animation-delay: 1.25s; }
+
+  @keyframes travel-right {
+    0%   { left: -4px; opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { left: calc(100% + 4px); opacity: 0; }
+  }
+  @keyframes travel-left {
+    0%   { right: -4px; left: auto; opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { right: calc(100% + 4px); opacity: 0; }
+  }
+
+  .m-wire-center {
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--m-bg);
+    border: 1px solid var(--m-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    box-shadow: 0 0 20px rgba(192,132,252,0.2);
+    z-index: 1;
+  }
+
+  /* Floating messages */
+  .m-msg {
+    position: absolute;
+    background: white;
+    border: 1px solid var(--m-border);
+    border-radius: 10px; padding: 10px 16px;
+    box-shadow: 0 4px 20px rgba(192,132,252,0.12);
+    display: flex; flex-direction: column; gap: 4px;
+    min-width: 180px;
+  }
+  .m-msg-left  { bottom: -20px; left: -10px; }
+  .m-msg-right { top: -20px; right: -10px; }
+  .m-msg-name  { font-family: var(--font-mono); font-size: 0.68rem; color: var(--m-purple); font-weight: 400; letter-spacing: 0.05em; }
+  .m-msg-text  { font-family: var(--font-mono); font-size: 0.78rem; color: var(--m-text); }
+
+  .reveal-msg   { opacity: 0; animation: fade-up 0.6s 1.4s forwards; }
+  .reveal-msg-2 { opacity: 0; animation: fade-up 0.6s 1.8s forwards; }
+
+  /* Scroll hint */
+  .m-scroll {
+    position: absolute; bottom: 32px; left: 60px;
+    font-family: var(--font-mono); font-size: 0.7rem;
+    letter-spacing: 0.14em; color: var(--m-text-muted);
+    opacity: 0; animation: fade-up 0.6s 1.6s forwards;
+  }
+
+  /* ── BUTTONS ── */
+  .m-btn-primary {
+    background: linear-gradient(135deg, var(--m-purple), var(--m-pink));
+    color: white; padding: 13px 28px; border-radius: 100px;
+    text-decoration: none; font-family: var(--font-mono);
+    font-size: 0.82rem; letter-spacing: 0.04em;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 24px rgba(192,132,252,0.35);
+    display: inline-block;
+  }
+  .m-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(192,132,252,0.5); color: white; }
+  .m-btn-ghost {
+    color: var(--m-text-muted); padding: 13px 28px;
+    border-radius: 100px; text-decoration: none;
+    font-family: var(--font-mono); font-size: 0.82rem;
+    border: 1px solid var(--m-border);
+    transition: color 0.2s, border-color 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .m-btn-ghost:hover { color: var(--m-purple); border-color: rgba(192,132,252,0.5); transform: translateY(-2px); }
+
+  /* ── HOW IT WORKS ── */
+  .m-how {
+    position: relative; z-index: 2;
+    padding: 100px 60px;
+    background: white;
+    border-top: 1px solid var(--m-border);
+    border-bottom: 1px solid var(--m-border);
+  }
+  .m-how-inner { max-width: 1100px; margin: 0 auto; }
+  .m-section-head { margin-bottom: 56px; }
+  .m-section-head.center { text-align: center; }
+  .m-section-eyebrow {
+    font-family: var(--font-mono); font-size: 0.7rem;
+    letter-spacing: 0.2em; color: var(--m-purple);
+    margin-bottom: 12px;
+  }
+  .m-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700; line-height: 1.1;
+    color: var(--m-text); letter-spacing: -0.01em;
+  }
+  .m-steps {
+    display: flex; align-items: center; gap: 0;
+  }
+  .m-step {
+    flex: 1; padding: 36px 32px;
+    background: var(--m-bg);
+    border: 1px solid var(--m-border);
+    border-radius: 16px;
+  }
+  .m-step-arrow {
+    font-size: 1.4rem; color: var(--m-purple);
+    padding: 0 16px; opacity: 0.5; flex-shrink: 0;
+  }
+  .m-step-num {
+    font-family: var(--font-mono); font-size: 0.7rem;
+    letter-spacing: 0.1em; color: var(--m-purple);
+    margin-bottom: 12px;
+  }
+  .m-step-icon { font-size: 1.8rem; margin-bottom: 14px; display: block; }
+  .m-step-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--m-text); margin-bottom: 10px;
+  }
+  .m-step-desc {
+    font-family: var(--font-mono); font-size: 0.8rem;
+    color: var(--m-text-muted); line-height: 1.8;
+  }
+  .m-step-desc code {
+    background: var(--m-code-bg); color: var(--m-purple);
+    padding: 1px 6px; border-radius: 3px; font-size: 0.78rem;
+  }
+
+  /* ── FEATURES ── */
+  .m-features {
+    position: relative; z-index: 2;
+    padding: 100px 60px;
+    background: var(--m-bg-2);
+  }
+  .m-features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; max-width: 1100px; margin: 0 auto;
+  }
+  .m-feat {
+    background: white;
+    border: 1px solid var(--m-border);
+    border-radius: 16px; padding: 32px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .m-feat:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(192,132,252,0.12);
+    border-color: rgba(192,132,252,0.35);
+  }
+  .m-feat-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 14px;
+  }
+  .m-feat-icon { font-size: 1.3rem; }
+  .m-feat-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 700; color: var(--m-text);
+    flex: 1;
+  }
+  .m-feat-tag {
+    font-family: var(--font-mono); font-size: 0.64rem;
+    letter-spacing: 0.1em; padding: 2px 8px;
+    border-radius: 3px;
+    background: rgba(192,132,252,0.1);
+    border: 1px solid var(--m-border);
+    color: var(--m-text-muted);
+    white-space: nowrap;
+  }
+  .m-feat-tag.purple { color: var(--m-purple); background: rgba(192,132,252,0.12); border-color: rgba(192,132,252,0.25); }
+  .m-feat-desc {
+    font-family: var(--font-mono); font-size: 0.8rem;
+    color: var(--m-text-muted); line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  .m-feat-desc code {
+    background: var(--m-code-bg); color: var(--m-purple);
+    padding: 1px 5px; border-radius: 3px; font-size: 0.76rem;
+  }
+  .m-feat-commands {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .m-feat-commands code {
+    font-family: var(--font-mono); font-size: 0.7rem;
+    background: var(--m-bg-3); color: var(--m-purple);
+    padding: 3px 8px; border-radius: 4px;
+    border: 1px solid var(--m-border);
+  }
+
+  /* ── CTA ── */
+  .m-cta {
+    position: relative; z-index: 2;
+    padding: 120px 60px;
+    background: white;
+    text-align: center; overflow: hidden;
+    border-top: 1px solid var(--m-border);
+  }
+  .m-cta-blob {
+    position: absolute; width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(192,132,252,0.1) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    border-radius: 50%; pointer-events: none;
+    animation: glow-pulse 6s ease-in-out infinite;
+  }
+  .m-cta-inner { position: relative; z-index: 1; max-width: 540px; margin: 0 auto; }
+  .m-cta-icon { font-size: 3rem; margin-bottom: 20px; display: block; }
+  .m-cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700; line-height: 1.1;
+    color: var(--m-text); margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .m-cta-sub {
+    font-family: var(--font-mono); font-size: 0.88rem;
+    color: var(--m-text-muted); line-height: 1.8; margin-bottom: 36px;
+  }
+  .m-cta-actions { display: flex; gap: 14px; justify-content: center; margin-bottom: 28px; }
+  .m-back {
+    font-family: var(--font-mono); font-size: 0.78rem;
+    color: var(--m-text-muted); text-decoration: none;
+    letter-spacing: 0.05em; display: block;
+    transition: color 0.2s;
+  }
+  .m-back:hover { color: var(--m-purple); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1000px) {
+    .m-hero-inner { grid-template-columns: 1fr; gap: 48px; }
+    .m-hero-visual { order: -1; }
+    .m-msg-left, .m-msg-right { display: none; }
+  }
+  @media (max-width: 900px) {
+    .m-hero { padding: 100px 24px 60px; }
+    .m-how, .m-features, .m-cta { padding: 72px 24px; }
+    .m-steps { flex-direction: column; gap: 8px; }
+    .m-step-arrow { transform: rotate(90deg); padding: 8px 0; }
+    .m-features-grid { grid-template-columns: 1fr 1fr; }
+    .m-cta-actions { flex-direction: column; align-items: center; }
+    .m-scroll { display: none; }
+  }
+  @media (max-width: 600px) {
+    .m-features-grid { grid-template-columns: 1fr; }
+    .m-call-diagram { padding: 28px 16px; }
+    .m-server-icon, .m-server-unknown { width: 60px; height: 60px; }
+  }
+</style>
+{% endblock %}

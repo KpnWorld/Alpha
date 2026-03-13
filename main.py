@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify
 from api.stats import stats_bp
 from api.dashboard import dashboard_bp
 import os
@@ -21,6 +21,10 @@ def index():
 @app.route('/musubi')
 def musubi():
     return render_template('bots/musubi.html')
+
+@app.route('/musubi/commands')
+def musubi_commands():
+    return render_template('bots/musubi_commands.html')
 
 @app.route('/denki')
 def denki():
@@ -57,6 +61,6 @@ def not_found(e):
 if __name__ == '__main__':
     app.run(
         host='0.0.0.0',
-        port=int(os.getenv('PORT', 5000)),
+        port=int(os.getenv('PORT', 8080)),
         debug=os.getenv('FLASK_ENV') == 'development'
     )

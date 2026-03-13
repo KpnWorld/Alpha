@@ -1,0 +1,758 @@
+{% extends "base.html" %}
+
+{% block title %}Musubi Commands — KpnWorld{% endblock %}
+{% block meta_description %}Full command reference for Musubi — the guild-to-guild relay bot by KpnWorld.{% endblock %}
+
+{% block content %}
+
+<div class="mc-layout">
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside class="mc-sidebar" id="mcSidebar">
+    <div class="mc-sidebar-header">
+      <img src="{{ url_for('static', filename='img/musubi.png') }}" alt="Musubi" class="mc-sidebar-icon" />
+      <div>
+        <div class="mc-sidebar-name">Musubi</div>
+        <div class="mc-sidebar-version">v1.0.0 — Command Ref</div>
+      </div>
+    </div>
+
+    <nav class="mc-nav">
+      <a href="#phone"     class="mc-nav-item active" data-cat="phone">📞 Phone</a>
+      <a href="#profile"   class="mc-nav-item" data-cat="profile">👤 Profile</a>
+      <a href="#server"    class="mc-nav-item" data-cat="server">⚙️ Server</a>
+      <a href="#premium"   class="mc-nav-item" data-cat="premium">✨ Premium</a>
+      <a href="#callboard" class="mc-nav-item" data-cat="callboard">🏆 Callboard</a>
+    </nav>
+
+    <a href="/musubi" class="mc-back">← Back to Musubi</a>
+  </aside>
+
+  <!-- ==================== MAIN ==================== -->
+  <main class="mc-main">
+
+    <!-- Top bar -->
+    <div class="mc-topbar">
+      <div class="mc-topbar-left">
+        <a href="/musubi" class="mc-breadcrumb">Musubi</a>
+        <span class="mc-breadcrumb-sep">/</span>
+        <span class="mc-breadcrumb-cur">Commands</span>
+      </div>
+
+      <div class="mc-search-wrap">
+        <span class="mc-search-icon">⌕</span>
+        <input
+          type="text"
+          id="mcSearch"
+          class="mc-search"
+          placeholder="Search commands..."
+          autocomplete="off"
+        />
+        <kbd class="mc-search-kbd">ESC</kbd>
+      </div>
+    </div>
+
+    <!-- Page title -->
+    <div class="mc-page-head">
+      <div class="m-eyebrow" style="opacity:1;animation:none;">
+        <span class="m-dot"></span>
+        COMMAND REFERENCE
+      </div>
+      <h1 class="mc-title">All Commands</h1>
+      <p class="mc-subtitle">Every command Musubi supports. Click any command to copy it.</p>
+    </div>
+
+    <!-- No results -->
+    <div class="mc-no-results" id="mcNoResults" style="display:none;">
+      <span>No commands match "<span id="mcNoResultsTerm"></span>"</span>
+    </div>
+
+    <!-- ── PHONE ── -->
+    <section class="mc-section" id="phone" data-section="phone">
+      <div class="mc-section-head">
+        <span class="mc-section-icon">📞</span>
+        <div>
+          <h2 class="mc-section-title">Phone</h2>
+          <p class="mc-section-desc">The core of Musubi — place calls, end them, and control how you appear.</p>
+        </div>
+      </div>
+
+      <div class="mc-cards">
+
+        <div class="mc-card" data-cmd="/call" data-tags="phone call search connect dial">
+          <div class="mc-card-top">
+            <button class="mc-cmd" onclick="copyCmd(this)">/call</button>
+            <span class="mc-tag">Core</span>
+          </div>
+          <p class="mc-card-desc">Search for another server to connect with. Musubi dials into the network and finds a partner — premium guilds get priority matching. Calls auto-end after 30 minutes of silence.</p>
+          <div class="mc-example">
+            <span class="mc-example-label">USAGE</span>
+            <code>/call</code>
+          </div>
+        </div>
+
+        <div class="mc-card" data-cmd="/hangup" data-tags="phone hangup end cancel disconnect">
+          <div class="mc-card-top">
+            <button class="mc-cmd" onclick="copyCmd(this)">/hangup</button>
+            <span class="mc-tag">Core</span>
+          </div>
+          <p class="mc-card-desc">End the current call or cancel an in-progress search before a match is found.</p>
+          <div class="mc-example">
+            <span class="mc-example-label">USAGE</span>
+            <code>/hangup</code>
+          </div>
+        </div>
+
+        <div class="mc-card" data-cmd="/anonymous" data-tags="phone anonymous anon hide identity incognito">
+          <div class="mc-card-top">
+            <button class="mc-cmd" onclick="copyCmd(this)">/anonymous</button>
+            <span class="mc-tag">Core</span>
+          </div>
+          <p class="mc-card-desc">Toggle anonymous mode on or off. When enabled, you appear as <code>📞 Anonymous</code> on the other server instead of your real name and avatar.</p>
+          <div class="mc-example">
+            <span class="mc-example-label">USAGE</span>
+            <code>/anonymous</code>
+          </div>
+        </div>
+
+        <div class="mc-card" data-cmd="/friendme" data-tags="phone friendme friend add tag share contact">
+          <div class="mc-card-top">
+            <button class="mc-cmd" onclick="copyCmd(this)">/friendme</button>
+            <span class="mc-tag">Core</span>
+          </div>
+          <p class="mc-card-desc">Send your Discord tag to the other server during an active call so they can add you after the call ends.</p>
+          <div class="mc-example">
+            <span class="mc-example-label">USAGE</span>
+            <code>/friendme</code>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── PROFILE ── -->
+    <section class="mc-section" id="profile" data-section="profile">
+      <div class="mc-section-head">
+        <span class="mc-section-icon">👤</span>
+        <div>
+          <h2 class="mc-section-title">Profile</h2>
+          <p class="mc-section-desc">Control how you appear to other servers during calls.</p>
+        </div>
+      </div>
+
+      <div class="mc-cards">
+
+        <div class="mc-card" data-cmd="/me status" data-tags="profile me status view check premium nickname avatar">
+          <div class="mc-card-top">
+            <button class="mc-cmd" onclick="copyCmd(this)">/me status</button>
+            <span class="mc-tag">Profile</span>
+          </div>
+          <p class="mc-card-desc">View your current profile — premium status, custom nickname, avatar, and whether anonymous mode is on.</p>
+          <div class="mc-example">
+            <span class="mc-example-label">USAGE</span>
+            <code>/me status</code>
+          </div>
+        </div>
+
+        <div class="mc-card" data-cmd="/me name" data-tags="profile me name nickname custom display premium">
+          <div class="mc-card-top">
+            <button class="mc-cmd" onclick="copyCmd(this)">/me name</button>
+            <span class="mc-tag-premium">✨ User Premium</span>
+          </div>
+          <p class="mc-card-desc">Set a custom display name that other servers see during calls instead of your Discord username.</p>
+          <div class="mc-example">
+            <span class="mc-example-label">USAGE</span>
+            <code>/me name <span class="mc-arg">[name]</span></code>
+          </div>
+          <div class="mc-example" style="margin-top:8px;">
+            <span class="mc-example-label">EXAMPLE</span>
+            <code>/me name spector</code>
+          </div>
+        </div>
+
+        <div class="mc-card" data-cmd="/me avatar" data-tags="profile me avatar custom image url premium">
+          <div class="mc-card-top">
+            <button class="mc-cmd" onclick="copyCmd(this)">/me avatar</button>
+            <span class="mc-tag-premium">✨ User Premium</span>
+          </div>
+          <p class="mc-card-desc">Set a custom avatar URL that other servers see during calls instead of your Discord profile picture.</p>
+          <div class="mc-example">
+            <span class="mc-example-label">USAGE</span>
+            <code>/me avatar <span class="mc-arg">[url]</span></code>
+          </div>
+          <div class="mc-example" style="margin-top:8px;">
+            <span class="mc-example-label">EXAMPLE</span>
+            <code>/me avatar https://i.imgur.com/abc.png</code>
+          </div>
+        </div>
+
+        <div class="mc-card" data-cmd="/me reset" data-tags="profile me reset clear default remove name avatar">
+          <div class="mc-card-top">
+            <button class="mc-cmd" onclick="copyCmd(this)">/me reset</button>
+            <span class="mc-tag">Profile</span>
+          </div>
+          <p class="mc-card-desc">Wipe your custom display name and avatar. Reverts back to your Discord defaults on all future calls.</p>
+          <div class="mc-example">
+            <span class="mc-example-label">USAGE</span>
+            <code>/me reset</code>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── SERVER ── -->
+    <section class="mc-section" id="server" data-section="server">
+      <div class="mc-section-head">
+        <span class="mc-section-icon">⚙️</span>
+        <div>
+          <h2 class="mc-section-title">Server</h2>
+          <p class="mc-section-desc">Admin commands for registering and configuring your server on the network.</p>
+        </div>
+      </div>
+
+      <div class="mc-cards">
+
+        <div class="mc-card" data-cmd="/setup" data-tags="server setup register booth channel admin">
+          <div class="mc-card-top">
+            <button class="mc-cmd" onclick="copyCmd(this)">/setup</button>
+            <span class="mc-tag">Admin</span>
+          </div>
+          <p class="mc-card-desc">Register your server on the Musubi network and pick a booth channel — the single channel where all calls happen.</p>
+          <div class="mc-example">
+            <span class="mc-example-label">USAGE</span>
+            <code>/setup</code>
+          </div>
+        </div>
+
+        <div class="mc-card" data-cmd="/setbooth" data-tags="server setbooth booth channel change update admin">
+          <div class="mc-card-top">
+            <button class="mc-cmd" onclick="copyCmd(this)">/setbooth</button>
+            <span class="mc-tag">Admin</span>
+          </div>
+          <p class="mc-card-desc">Change the booth channel after initial setup without needing to re-register your server.</p>
+          <div class="mc-example">
+            <span class="mc-example-label">USAGE</span>
+            <code>/setbooth <span class="mc-arg">[#channel]</span></code>
+          </div>
+          <div class="mc-example" style="margin-top:8px;">
+            <span class="mc-example-label">EXAMPLE</span>
+            <code>/setbooth #phonebooth</code>
+          </div>
+        </div>
+
+        <div class="mc-card" data-cmd="/prefix server" data-tags="server prefix custom command admin">
+          <div class="mc-card-top">
+            <button class="mc-cmd" onclick="copyCmd(this)">/prefix server</button>
+            <span class="mc-tag">Admin</span>
+          </div>
+          <p class="mc-card-desc">Set a custom command prefix for your server. Applies to all members in this server.</p>
+          <div class="mc-example">
+            <span class="mc-example-label">USAGE</span>
+            <code>/prefix server <span class="mc-arg">[prefix]</span></code>
+          </div>
+          <div class="mc-example" style="margin-top:8px;">
+            <span class="mc-example-label">EXAMPLE</span>
+            <code>/prefix server !</code>
+          </div>
+        </div>
+
+        <div class="mc-card" data-cmd="/unregister" data-tags="server unregister remove delete leave network admin">
+          <div class="mc-card-top">
+            <button class="mc-cmd" onclick="copyCmd(this)">/unregister</button>
+            <span class="mc-tag danger">Destructive</span>
+          </div>
+          <p class="mc-card-desc">Remove your server from the Musubi network entirely. Two-step confirmed — no accidents.</p>
+          <div class="mc-example">
+            <span class="mc-example-label">USAGE</span>
+            <code>/unregister</code>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── PREMIUM ── -->
+    <section class="mc-section" id="premium" data-section="premium">
+      <div class="mc-section-head">
+        <span class="mc-section-icon">✨</span>
+        <div>
+          <h2 class="mc-section-title">Premium</h2>
+          <p class="mc-section-desc">User Premium unlocks custom identities and personal prefix. Server Premium unlocks attachments, stickers, and double XP.</p>
+        </div>
+      </div>
+
+      <div class="mc-cards">
+
+        <div class="mc-card" data-cmd="/prefix self" data-tags="premium prefix personal self user">
+          <div class="mc-card-top">
+            <button class="mc-cmd" onclick="copyCmd(this)">/prefix self</button>
+            <span class="mc-tag-premium">✨ User Premium</span>
+          </div>
+          <p class="mc-card-desc">Set a personal prefix that follows you across every server you use Musubi in — not just the current one.</p>
+          <div class="mc-example">
+            <span class="mc-example-label">USAGE</span>
+            <code>/prefix self <span class="mc-arg">[prefix]</span></code>
+          </div>
+          <div class="mc-example" style="margin-top:8px;">
+            <span class="mc-example-label">EXAMPLE</span>
+            <code>/prefix self $</code>
+          </div>
+        </div>
+
+        <div class="mc-card" data-cmd="/premium status" data-tags="premium status check active tier">
+          <div class="mc-card-top">
+            <button class="mc-cmd" onclick="copyCmd(this)">/premium status</button>
+            <span class="mc-tag">Premium</span>
+          </div>
+          <p class="mc-card-desc">Check what premium is currently active for you personally and for your server.</p>
+          <div class="mc-example">
+            <span class="mc-example-label">USAGE</span>
+            <code>/premium status</code>
+          </div>
+        </div>
+
+        <div class="mc-card" data-cmd="/redeem" data-tags="premium redeem key activate code">
+          <div class="mc-card-top">
+            <button class="mc-cmd" onclick="copyCmd(this)">/redeem</button>
+            <span class="mc-tag">Premium</span>
+          </div>
+          <p class="mc-card-desc">Activate a premium key for User or Server Premium. Keys are distributed by KpnWorld.</p>
+          <div class="mc-example">
+            <span class="mc-example-label">USAGE</span>
+            <code>/redeem <span class="mc-arg">[key]</span></code>
+          </div>
+          <div class="mc-example" style="margin-top:8px;">
+            <span class="mc-example-label">EXAMPLE</span>
+            <code>/redeem XXXX-XXXX-XXXX</code>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── CALLBOARD ── -->
+    <section class="mc-section" id="callboard" data-section="callboard">
+      <div class="mc-section-head">
+        <span class="mc-section-icon">🏆</span>
+        <div>
+          <h2 class="mc-section-title">Callboard</h2>
+          <p class="mc-section-desc">Servers earn XP every message sent on a call. Top 7 reset monthly.</p>
+        </div>
+      </div>
+
+      <div class="mc-cards">
+
+        <div class="mc-card" data-cmd="/callboard" data-tags="callboard leaderboard xp ranking monthly">
+          <div class="mc-card-top">
+            <button class="mc-cmd" onclick="copyCmd(this)">/callboard</button>
+            <span class="mc-tag">Network</span>
+          </div>
+          <p class="mc-card-desc">View the current monthly leaderboard. Servers earn XP per message sent during calls — premium servers earn double. Top 7 are displayed and reset each month.</p>
+          <div class="mc-example">
+            <span class="mc-example-label">USAGE</span>
+            <code>/callboard</code>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer note -->
+    <div class="mc-footer-note">
+      <span>📞</span>
+      <span>Missing something? Join the <a href="https://discord.gg/F9PB47S3FJ" target="_blank">KpnWorld Discord</a> and let us know.</span>
+    </div>
+
+  </main>
+</div>
+
+{% endblock %}
+
+
+{% block styles %}
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+<style>
+
+  :root {
+    --m-purple:      #C084FC;
+    --m-purple-deep: #A855F7;
+    --m-pink:        #F472B6;
+    --m-bg:          #fdf8ff;
+    --m-bg-2:        #f7f0ff;
+    --m-bg-3:        #ede0ff;
+    --m-border:      rgba(192,132,252,0.18);
+    --m-text:        #150a28;
+    --m-text-muted:  #7a6695;
+    --m-code-bg:     rgba(192,132,252,0.1);
+    --mc-sidebar-w:  260px;
+  }
+
+  body { background: var(--m-bg) !important; color: var(--m-text) !important; }
+  .cursor      { background: var(--m-purple) !important; }
+  .cursor-ring { border-color: rgba(192,132,252,0.45) !important; }
+  body:has(a:hover) .cursor      { background: var(--m-pink) !important; }
+  body:has(a:hover) .cursor-ring { border-color: rgba(244,114,182,0.4) !important; }
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(192,132,252,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(192,132,252,0.04) 1px, transparent 1px) !important;
+  }
+  body::before { opacity: 0.1 !important; }
+  nav { background: rgba(253,248,255,0.97) !important; border-bottom: 1px solid var(--m-border) !important; }
+  .nav-logo { color: var(--m-text) !important; }
+  .nav-logo-icon { background: linear-gradient(135deg, var(--m-purple), var(--m-pink)) !important; }
+  .nav-logo-icon::after { background: var(--m-bg) !important; }
+  .nav-links a { color: var(--m-text-muted) !important; }
+  .nav-links a:hover { color: var(--m-text) !important; }
+  .nav-cta { color: var(--m-purple) !important; border-color: var(--m-border) !important; }
+  .nav-cta:hover { background: var(--m-purple) !important; color: white !important; }
+  .nav-hamburger span { background: var(--m-text-muted) !important; }
+  footer { background: var(--m-bg-2) !important; border-top: 1px solid var(--m-border) !important; }
+  .footer-logo { color: var(--m-text) !important; }
+  .footer-tagline, .footer-col-title, .footer-col a, .footer-bottom span { color: var(--m-text-muted) !important; }
+  .footer-col a:hover { color: var(--m-purple) !important; }
+
+  /* ── LAYOUT ── */
+  main { padding: 0 !important; }
+  .mc-layout {
+    display: flex;
+    min-height: 100vh;
+    padding-top: var(--nav-height);
+    position: relative; z-index: 2;
+  }
+
+  /* ── SIDEBAR ── */
+  .mc-sidebar {
+    width: var(--mc-sidebar-w);
+    flex-shrink: 0;
+    border-right: 1px solid var(--m-border);
+    background: white;
+    position: sticky;
+    top: var(--nav-height);
+    height: calc(100vh - var(--nav-height));
+    overflow-y: auto;
+    display: flex; flex-direction: column;
+    padding: 32px 20px;
+    gap: 24px;
+  }
+  .mc-sidebar-header {
+    display: flex; align-items: center; gap: 12px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--m-border);
+  }
+  .mc-sidebar-icon {
+    width: 40px; height: 40px; border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--m-border);
+  }
+  .mc-sidebar-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 700; color: var(--m-text);
+  }
+  .mc-sidebar-version {
+    font-family: var(--font-mono); font-size: 0.68rem;
+    color: var(--m-text-muted); letter-spacing: 0.05em;
+  }
+  .mc-nav {
+    display: flex; flex-direction: column; gap: 2px;
+    flex: 1;
+  }
+  .mc-nav-item {
+    font-family: var(--font-mono); font-size: 0.82rem;
+    color: var(--m-text-muted); text-decoration: none;
+    padding: 10px 14px; border-radius: 8px;
+    transition: background 0.15s, color 0.15s;
+    letter-spacing: 0.02em;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .mc-nav-item:hover { background: var(--m-bg-2); color: var(--m-text); }
+  .mc-nav-item.active { background: var(--m-bg-3); color: var(--m-purple); font-weight: 400; }
+  .mc-back {
+    font-family: var(--font-mono); font-size: 0.75rem;
+    color: var(--m-text-muted); text-decoration: none;
+    padding: 10px 14px; letter-spacing: 0.05em;
+    border-top: 1px solid var(--m-border);
+    transition: color 0.2s;
+    display: block; padding-top: 20px; margin-top: 4px;
+  }
+  .mc-back:hover { color: var(--m-purple); }
+
+  /* ── MAIN ── */
+  .mc-main {
+    flex: 1; min-width: 0;
+    padding: 0 60px 80px;
+    max-width: 900px;
+  }
+
+  /* Top bar */
+  .mc-topbar {
+    position: sticky; top: var(--nav-height);
+    background: rgba(253,248,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--m-border);
+    padding: 16px 0;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 10;
+    margin: 0 -60px;
+    padding-left: 60px; padding-right: 60px;
+  }
+  .mc-breadcrumb {
+    font-family: var(--font-mono); font-size: 0.78rem;
+    color: var(--m-text-muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .mc-breadcrumb:hover { color: var(--m-purple); }
+  .mc-breadcrumb-sep { font-family: var(--font-mono); font-size: 0.78rem; color: var(--m-border); margin: 0 6px; }
+  .mc-breadcrumb-cur { font-family: var(--font-mono); font-size: 0.78rem; color: var(--m-text); }
+
+  .mc-search-wrap {
+    position: relative; display: flex; align-items: center;
+  }
+  .mc-search-icon {
+    position: absolute; left: 12px;
+    color: var(--m-text-muted); font-size: 1rem;
+    pointer-events: none;
+  }
+  .mc-search {
+    background: white;
+    border: 1px solid var(--m-border);
+    border-radius: 8px;
+    padding: 8px 48px 8px 36px;
+    font-family: var(--font-mono); font-size: 0.8rem;
+    color: var(--m-text);
+    width: 260px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .mc-search::placeholder { color: var(--m-text-muted); }
+  .mc-search:focus { border-color: var(--m-purple); box-shadow: 0 0 0 3px rgba(192,132,252,0.1); }
+  .mc-search-kbd {
+    position: absolute; right: 10px;
+    font-family: var(--font-mono); font-size: 0.62rem;
+    color: var(--m-text-muted);
+    background: var(--m-bg-2); border: 1px solid var(--m-border);
+    padding: 2px 5px; border-radius: 3px;
+    pointer-events: none;
+  }
+
+  /* Page head */
+  .mc-page-head { padding: 40px 0 8px; }
+  .m-eyebrow {
+    font-family: var(--font-mono); font-size: 0.7rem;
+    letter-spacing: 0.18em; color: var(--m-purple);
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px;
+  }
+  .m-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--m-purple);
+    box-shadow: 0 0 8px var(--m-purple); flex-shrink: 0;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%,100% { box-shadow: 0 0 6px var(--m-purple); }
+    50%      { box-shadow: 0 0 16px var(--m-purple), 0 0 28px rgba(192,132,252,0.4); }
+  }
+  .mc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem; font-weight: 700;
+    color: var(--m-text); letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .mc-subtitle {
+    font-family: var(--font-mono); font-size: 0.85rem;
+    color: var(--m-text-muted); margin-bottom: 8px;
+  }
+
+  /* No results */
+  .mc-no-results {
+    font-family: var(--font-mono); font-size: 0.88rem;
+    color: var(--m-text-muted); padding: 48px 0;
+    text-align: center;
+  }
+
+  /* ── SECTIONS ── */
+  .mc-section { padding: 48px 0 0; }
+  .mc-section-head {
+    display: flex; align-items: flex-start; gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--m-border);
+  }
+  .mc-section-icon { font-size: 1.8rem; flex-shrink: 0; margin-top: 2px; }
+  .mc-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700;
+    color: var(--m-text); margin-bottom: 4px;
+  }
+  .mc-section-desc {
+    font-family: var(--font-mono); font-size: 0.8rem;
+    color: var(--m-text-muted); line-height: 1.7;
+  }
+
+  /* ── CARDS ── */
+  .mc-cards { display: flex; flex-direction: column; gap: 12px; }
+  .mc-card {
+    background: white;
+    border: 1px solid var(--m-border);
+    border-radius: 12px; padding: 24px 28px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .mc-card:hover {
+    border-color: rgba(192,132,252,0.35);
+    box-shadow: 0 4px 20px rgba(192,132,252,0.08);
+  }
+  .mc-card-top {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 12px;
+  }
+  .mc-cmd {
+    font-family: var(--font-mono); font-size: 0.9rem;
+    color: var(--m-purple);
+    background: var(--m-code-bg);
+    border: 1px solid rgba(192,132,252,0.2);
+    padding: 4px 12px; border-radius: 6px;
+    cursor: none; transition: background 0.15s, transform 0.15s;
+    position: relative;
+  }
+  .mc-cmd:hover { background: rgba(192,132,252,0.18); transform: translateY(-1px); }
+  .mc-cmd.copied { background: rgba(34,197,94,0.12); color: #16a34a; border-color: rgba(34,197,94,0.3); }
+
+  .mc-tag {
+    font-family: var(--font-mono); font-size: 0.65rem;
+    letter-spacing: 0.1em; padding: 2px 8px; border-radius: 3px;
+    background: var(--m-bg-2); border: 1px solid var(--m-border);
+    color: var(--m-text-muted);
+  }
+  .mc-tag.danger { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.2); color: #dc2626; }
+  .mc-tag-premium {
+    font-family: var(--font-mono); font-size: 0.65rem;
+    letter-spacing: 0.06em; padding: 2px 8px; border-radius: 3px;
+    background: rgba(192,132,252,0.12);
+    border: 1px solid rgba(192,132,252,0.25);
+    color: var(--m-purple);
+  }
+
+  .mc-card-desc {
+    font-family: var(--font-mono); font-size: 0.82rem;
+    color: var(--m-text-muted); line-height: 1.8;
+    margin-bottom: 14px;
+  }
+  .mc-card-desc code {
+    background: var(--m-code-bg); color: var(--m-purple);
+    padding: 1px 5px; border-radius: 3px; font-size: 0.78rem;
+  }
+
+  .mc-example {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .mc-example-label {
+    font-family: var(--font-mono); font-size: 0.62rem;
+    letter-spacing: 0.12em; color: var(--m-text-muted);
+    opacity: 0.6; min-width: 50px;
+  }
+  .mc-example code {
+    font-family: var(--font-mono); font-size: 0.82rem;
+    background: var(--m-bg-2); color: var(--m-text);
+    padding: 4px 12px; border-radius: 6px;
+    border: 1px solid var(--m-border);
+  }
+  .mc-arg { color: var(--m-purple); font-style: italic; }
+
+  /* Footer note */
+  .mc-footer-note {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 60px; padding: 20px 24px;
+    background: white; border: 1px solid var(--m-border);
+    border-radius: 10px;
+    font-family: var(--font-mono); font-size: 0.8rem;
+    color: var(--m-text-muted);
+  }
+  .mc-footer-note a { color: var(--m-purple); text-decoration: none; }
+  .mc-footer-note a:hover { text-decoration: underline; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .mc-sidebar { display: none; }
+    .mc-main { padding: 0 24px 60px; }
+    .mc-topbar { margin: 0 -24px; padding-left: 24px; padding-right: 24px; }
+    .mc-search { width: 180px; }
+  }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // ── SEARCH ──
+  const searchInput = document.getElementById('mcSearch');
+  const noResults   = document.getElementById('mcNoResults');
+  const noResTerm   = document.getElementById('mcNoResultsTerm');
+  const cards       = document.querySelectorAll('.mc-card');
+  const sections    = document.querySelectorAll('.mc-section');
+
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.toLowerCase().trim();
+
+    if (!q) {
+      cards.forEach(c => c.style.display = '');
+      sections.forEach(s => s.style.display = '');
+      noResults.style.display = 'none';
+      return;
+    }
+
+    let anyVisible = false;
+
+    sections.forEach(section => {
+      let sectionHasVisible = false;
+      section.querySelectorAll('.mc-card').forEach(card => {
+        const cmd  = (card.dataset.cmd  || '').toLowerCase();
+        const tags = (card.dataset.tags || '').toLowerCase();
+        const text = card.textContent.toLowerCase();
+        const match = cmd.includes(q) || tags.includes(q) || text.includes(q);
+        card.style.display = match ? '' : 'none';
+        if (match) { sectionHasVisible = true; anyVisible = true; }
+      });
+      section.style.display = sectionHasVisible ? '' : 'none';
+    });
+
+    noResults.style.display = anyVisible ? 'none' : 'block';
+    noResTerm.textContent = searchInput.value;
+  });
+
+  // ESC clears search
+  searchInput.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { searchInput.value = ''; searchInput.dispatchEvent(new Event('input')); }
+  });
+
+  // ── COPY COMMAND ──
+  function copyCmd(btn) {
+    const cmd = btn.textContent.trim();
+    navigator.clipboard.writeText(cmd).then(() => {
+      btn.classList.add('copied');
+      btn.textContent = 'Copied!';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.textContent = cmd;
+      }, 1500);
+    });
+  }
+
+  // ── ACTIVE SIDEBAR NAV ──
+  const navItems = document.querySelectorAll('.mc-nav-item');
+  const sectionEls = document.querySelectorAll('.mc-section[id]');
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navItems.forEach(n => {
+          n.classList.toggle('active', n.dataset.cat === id);
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sectionEls.forEach(s => sectionObserver.observe(s));
+</script>
+{% endblock %}
