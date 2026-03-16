@@ -1,66 +1,33 @@
-from flask import Flask, render_template, jsonify
-from api.stats import stats_bp
-from api.dashboard import dashboard_bp
+from flask import Flask, jsonify
+from flask_cors import CORS
+from api.musubi import musubi_bp
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv('FLASK_SECRET_KEY', 'dev-secret-change-in-prod')
+app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev-secret-change-in-prod")
 
-# Register
-app.register_blueprint(stats_bp,     url_prefix='/api/stats')
-app.register_blueprint(dashboard_bp, url_prefix='/api/dashboard')
+# Allow React dev server to call Flask API
+CORS(app, origins=["http://localhost:3000", os.getenv("FRONTEND_URL", "")])
 
-# Main Route
-@app.route('/')
-def index():
-    return render_template('index.html')
+# Blueprints
+app.register_blueprint(musubi_bp, url_prefix="/api/musubi")
 
-# Bot Homes
-@app.route('/musubi')
-def musubi():
-    return render_template('bots/musubi.html')
-
-@app.route('/musubi/commands')
-def musubi_commands():
-    return render_template('bots/musubi_commands.html')
-
-@app.route('/denki')
-def denki():
-    return render_template('bots/denki.html')
-
-@app.route('/fate')
-def fate():
-    return render_template('bots/fate.html')
-
-# Dashboard
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard/login.html')
-
-@app.route('/dashboard/overview')
-def dashboard_overview():
-    return render_template('dashboard/overview.html')
 
 # Health
-@app.route('/health')
+@app.route("/health")
 def health():
-    return jsonify({
-        "status":  "ok",
-        "company": "KpnWorld",
-        "bots":    ["Musubi", "Denki", "Fate"]
-    })
+    return jsonify(
+        {"status": "ok", "company": "KpnWorld", "bots": ["Musubi", "Denki", "Fate"]}
+    )
 
-# 404
-@app.errorhandler(404)
-def not_found(e):
-    return render_template('404.html'), 404
 
 # RUN
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(
-        host='0.0.0.0',
-        port=int(os.getenv('PORT', 8080)),
-        debug=os.getenv('FLASK_ENV') == 'development'
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", 8080)),
+        debug=os.getenv("FLASK_ENV") == "development",
     )
